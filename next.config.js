@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
-
-module.exports = nextConfig
+const nextConfig = {
+    images: {
+      domains: ["s3-alpha-sig.figma.com"],
+    },
+  };
+  
+  module.exports = nextConfig;
+  
