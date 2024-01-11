@@ -1,25 +1,25 @@
 "use client";
+
+import { formatPrice } from "@/utils/formatPrice";
 import Image from "next/image";
-// import { products } from "@/utils/product";
 import React, { useState } from "react";
 
-interface ProductCardProps{
-    data: any;
+interface ProductCardProps {
+  data: any;
 }
 
-const ProductCard:React.FC<ProductCardProps> = ({ data }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const [color, setColor] = useState("bg-amber-400");
 
   function handleClick() {
-    console.log(data.id+" button clicked");
+    console.log(data.id + " button clicked");
 
     setColor("bg-stone-900");
     setTimeout(() => {
       setColor("bg-amber-400");
-    //   handleNotificationCount(); // Call the callback function to update the count
+      //   handleNotificationCount(); // Call the callback function to update the count
     }, 200);
   }
-
 
   return (
     <div className={`p-6 mx-auto`}>
@@ -52,7 +52,7 @@ const ProductCard:React.FC<ProductCardProps> = ({ data }) => {
           {data.name}
         </div>
         <div className="left-[81px] top-[341.63px] absolute text-stone-500 text-xl font-normal font-['Poppins']">
-          $ {data.price}
+          {formatPrice(data.price)}
         </div>
         <div className="left-[164.30px] top-[341.63px] absolute text-stone-500 text-xl font-normal font-['Poppins']">
           {data.inStock} left
