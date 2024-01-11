@@ -1,5 +1,6 @@
+import ProductCard from "@/app/components/products/ProductCard";
 import { product } from "@/utils/product";
-import ProductDetails from "./ProductDetails";
+// import ProductDetails from "./ProductDetails";
 
 interface IPrams {
   productId?: string;
@@ -10,7 +11,7 @@ const Product = ({ params }: { params: IPrams }) => {
 
   return (
     <div>
-      <ProductDetails product={product} />
+      <ProductCard data={product} />
     </div>
   );
 };

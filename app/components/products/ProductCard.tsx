@@ -3,7 +3,7 @@
 import { useCart } from "@/hooks/useCart";
 import { formatPrice } from "@/utils/formatPrice";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import Footer from "../footer/Footer";
 
 interface ProductCardProps {
@@ -21,6 +21,7 @@ export type CartProductType = {
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const { handleAddProductToCart, cartProducts } = useCart();
+  const [isProductInCart, setIsProductInCart] = useState(false);
   // const {handleNotificationCount, notificationCount } = Footer();
   const [color, setColor] = useState("bg-amber-400");
 
@@ -43,6 +44,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
     images: data.images,
     inStock: data.inStock
   });
+
+    useEffect(() => {
+    setIsProductInCart(false);
+    if (cartProducts) {
+      const existingIndex = cartProducts.findIndex(
+        (item) => item.id === data.id
+      );
+      if (existingIndex > -1) {
+        setIsProductInCart(true);
+      }
+    }
+  }, [cartProducts, data.id]);
   
 
   console.log(cartProducts)

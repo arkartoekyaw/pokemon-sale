@@ -1,13 +1,53 @@
 'use client'
 
-import { useCart } from "@/hooks/useCart";
+import { useCart,  } from "@/hooks/useCart";
 import { formatPrice } from "@/utils/formatPrice";
 import Image from "next/image";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+// import { CartProductType, cartProduct, setCartProduct } from "@/app/components/products/ProductCard";
+
 
 const CartClient = () => {
   const { cartProducts } = useCart();
   const [forceRender, setForceRender] = useState(0);
+
+
+  // const handleQtyIncrease = useCallback(() => {
+  //   if (cartProduct.quantity === 3) {
+  //     return;
+  //   }
+  //   setCartProduct((prev: { quantity: number; }) => {
+  //     return { ...prev, quantity: ++prev.quantity };
+  //   });
+  // }, [cartProduct]);
+
+  // const handleQtyDecrease = useCallback(() => {
+  //   if (cartProduct.quantity === 0) {
+  //     return;
+  //   }
+
+  //   setCartProduct((prev: { quantity: number; }) => {
+  //     return { ...prev, quantity: --prev.quantity };
+  //   });
+  // }, [cartProduct]);
+
+  const [itemQuantity, setItemQuantity] = useState(1);
+
+
+const handleQtyIncrease = () => {
+  if (itemQuantity === 3) {
+    return;
+  }
+  setItemQuantity((prevQuantity) => prevQuantity + 1);
+};
+
+const handleQtyDecrease = () => {
+  if (itemQuantity === 1) {
+    return;
+  }
+  setItemQuantity((prevQuantity) => prevQuantity - 1);
+};
+
 
 
   const handleClearAll =() =>{
@@ -34,6 +74,8 @@ const CartClient = () => {
             cartProducts.map((item) => {
               return (
                 <div className="py-2" key={item.id}>
+
+
                   <div className="w-[336px] h-[104.74px] justify-center items-center gap-5 inline-flex">
                     <Image
                       src={item.images}
@@ -55,17 +97,18 @@ const CartClient = () => {
                         </span>
                       </div>
                       <div className="w-[25px] h-[30px] left-[218px] top-[8px] absolute">
-                        <div className="origin-top-left rotate-180 w-2 h-[13px] left-[25px] top-0 absolute">-</div>
+                        <div className="origin-top-left rotate-180 w-2 h-[13px] left-[25px] top-0 absolute"><button onClick={handleQtyIncrease}>+</button></div>
                         <div className="left-0 top-0 absolute text-right text-blue-500 text-xl font-semibold font-['Poppins']">
-                          2
+                          {itemQuantity}
                         </div>
+                        <div className="origin-top-left rotate-180 w-2 h-[13px] left-[25px] bottom-0 absolute"><button onClick={handleQtyDecrease}>-</button></div>
                       </div>
                       <div className="w-[47px] h-[42px] left-[196px] top-[48px] absolute">
                         <div className="left-[16px] top-0 absolute text-right text-stone-900 text-xs font-medium font-['Poppins']">
                           price
                         </div>
                         <div className="left-0 top-[18px] absolute text-right text-blue-500 text-base font-bold font-['Poppins']">
-                          $4.68
+                        {formatPrice(itemQuantity*item.price)}
                         </div>
                       </div>
                       <div className="left-0 top-[69px] absolute">
