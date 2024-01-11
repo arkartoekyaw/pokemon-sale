@@ -16,7 +16,7 @@ type CartContextType = {
 
 const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [notificationCount, setNotificationCount] = useState(0);
+  // const [notificationCount, setNotificationCount] = useState(0);
 
   const handleButtonClick = () => {
     setIsModalOpen(true);
@@ -26,9 +26,9 @@ const Footer = () => {
     setIsModalOpen(false);
   };
 
-  const handleNotificationCount = useCallback((product: CartProductType) => {
-    setNotificationCount((prev) => ++prev);
-  }, []);
+  // const handleNotificationCount = useCallback((product: CartProductType) => {
+  //   setNotificationCount((prev) => ++prev);
+  // }, []);
 
   return (
     <div className="mx-auto overflow-x-hidden sticky bottom-0">
@@ -49,7 +49,8 @@ const Footer = () => {
             <div className="w-4 h-4 left-0 top-0 absolute">
               <div className="w-4 h-4 left-0 top-0 absolute bg-red-400 rounded-[100px]" />
               <div className="left-[5px] top-[1px] absolute text-white text-xs font-medium font-['Roboto']">
-                {notificationCount}
+                {/* {notificationCount} */}
+                3
               </div>
             </div>
           </div>

@@ -15,7 +15,8 @@ export type CartProductType = {
   name: string;
   quantity: number;
   price: number;
-  image: string;
+  images: string;
+  inStock: number;
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
@@ -39,7 +40,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
     name: data.name,
     quantity: 1,
     price: data.price,
-    image: data.images,
+    images: data.images,
+    inStock: data.inStock
   });
   
 
