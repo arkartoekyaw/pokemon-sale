@@ -49,13 +49,13 @@ const ProductCard:React.FC<ProductCardProps> = ({ data }) => {
         </div>
 
         <div className="left-[86px] top-[278px] absolute text-stone-900 text-[25px] font-bold font-['Poppins']">
-          Pokemon
+          {data.name}
         </div>
         <div className="left-[81px] top-[341.63px] absolute text-stone-500 text-xl font-normal font-['Poppins']">
-          $2.49
+          $ {data.price}
         </div>
         <div className="left-[164.30px] top-[341.63px] absolute text-stone-500 text-xl font-normal font-['Poppins']">
-          3 left
+          {data.inStock} left
         </div>
         <div className="left-[126px] top-[311.43px] absolute text-sky-700 text-base font-normal font-['Poppins']">
           rarity
