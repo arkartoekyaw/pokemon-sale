@@ -17,7 +17,7 @@ const Search = () => {
           </div>
           <div className="w-[11px] h-[11px] left-[45px] top-[12px] absolute">
             <div className="absolute  right-0 top-0">
-              <Image src="/arrow.png" alt="arrow" width={10} height={10} />
+              <Image src="/arrow.svg" alt="arrow" width={10} height={10} />
             </div>
           </div>
         </div>
@@ -27,7 +27,7 @@ const Search = () => {
           </div>
           <div className="w-[11px] h-[11px] left-[50px] top-[12px] absolute">
             <div className="absolute right-0 top-0">
-              <Image src="/arrow.png" alt="arrow" width={10} height={10} />
+              <Image src="/arrow.svg" alt="arrow" width={10} height={10} />
             </div>
           </div>
         </div>
@@ -37,7 +37,7 @@ const Search = () => {
           </div>
           <div className="w-[11px] h-[11px] left-[36px] top-[12px] absolute">
             <div className="absolute right-0 top-0">
-              <Image src="/arrow.png" alt="arrow" width={10} height={10} />
+              <Image src="/arrow.svg" alt="arrow" width={10} height={10} />
             </div>
           </div>
         </div>

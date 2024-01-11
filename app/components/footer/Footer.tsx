@@ -1,8 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Modal from "./Modal";
+import { CartProductType } from "../products/ProductCard";
+
+interface ProductCardProps {
+  data: any;
+}
+
+type CartContextType = {
+  notificationCount: 0;
+  handleNotificationCount: (product: CartProductType) => void;
+};
 
 const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,9 +26,9 @@ const Footer = () => {
     setIsModalOpen(false);
   };
 
-  const handleNotificationCount = () => {
-    setNotificationCount((prevCount) => prevCount + 1);
-  };
+  const handleNotificationCount = useCallback((product: CartProductType) => {
+    setNotificationCount((prev) => ++prev);
+  }, []);
 
   return (
     <div className="mx-auto overflow-x-hidden sticky bottom-0">
@@ -31,7 +41,7 @@ const Footer = () => {
           <div className="w-[108px] h-[41px] relative">
             <div className="w-[102px] h-[35px] left-[6px] top-[6px] absolute bg-blue-500 rounded-[10px] shadow" />
             <div className="w-[81px] h-[21px] left-[13px] top-[12px] absolute">
-              <Image src="/cart.png" alt="cart" width={20} height={20} />
+              <Image src="/cart.svg" alt="cart" width={20} height={20} />
               <div className="left-[30px] top-[4px] absolute text-white text-xs font-medium font-['Roboto']">
                 View cart
               </div>

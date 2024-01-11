@@ -1,28 +1,58 @@
 "use client";
+
+import { useCart } from "@/hooks/useCart";
+import { formatPrice } from "@/utils/formatPrice";
 import Image from "next/image";
 import React, { useState } from "react";
+// import Footer from "../footer/Footer";
 
-const Card = ({ id, imageSrc, handleNotificationCount }) => {
+interface ProductCardProps {
+  data: any;
+}
+
+export type CartProductType = {
+  id: string;
+  name: string;
+  quantity: number;
+  price: number;
+  image: string;
+};
+
+const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
+  const { handleAddProductToCart, cartProducts } = useCart();
+  // const {handleNotificationCount, notificationCount } = Footer();
   const [color, setColor] = useState("bg-amber-400");
 
+
   function handleClick() {
-    console.log(id + " button clicked");
+    console.log(data.id + " button clicked");
 
     setColor("bg-stone-900");
     setTimeout(() => {
       setColor("bg-amber-400");
-      handleNotificationCount(); // Call the callback function to update the count
-    }, 200);
+        // handleNotificationCount(); // Call the callback function to update the count
+    },200);
   }
 
+  const [cartProduct, setCartProduct] = useState<CartProductType>({
+    id: data.id,
+    name: data.name,
+    quantity: 1,
+    price: data.price,
+    image: data.images,
+  });
+  
+
+  console.log(cartProducts)
+
   return (
-    <div className={`p-10 card-${id}`}>
-      <div className="w-[294px] h-[431.37px] relative transition hover:scale-105">
+    <div className={`p-6 mx-auto`}>
+      <div className="mx-auto w-[294px] h-[431.37px] relative transition hover:scale-105">
         <div className="w-[294px] h-[204px] left-0 top-[204px] absolute bg-white rounded-[20px] shadow" />
         <div className="w-[194.37px] h-[267.87px] left-[49px] top-0 absolute">
           <Image
-            src={imageSrc}
-            alt={`Card ${id}`}
+            src={data.images}
+            alt={data.id}
             width={50}
             height={60}
             className="w-[194.37px] h-[271.13px] left-0 top-0 absolute"
@@ -35,7 +65,13 @@ const Card = ({ id, imageSrc, handleNotificationCount }) => {
           <div className="w-[217.23px] h-[47.37px] left-0 top-0 absolute  rounded-[25px] shadow" />
           <button
             type="button"
-            onClick={handleClick}
+            onClick={() => {
+              handleClick();
+              handleAddProductToCart(cartProduct);
+              // handleNotificationCount(notificationCount)
+
+              ;
+            }}
             className={`left-[65px] top-[9px] absolute text-center text-white text-xl font-medium font-['Poppins'] ${color} rounded-[25px]`}
           >
             Selected
@@ -43,13 +79,13 @@ const Card = ({ id, imageSrc, handleNotificationCount }) => {
         </div>
 
         <div className="left-[86px] top-[278px] absolute text-stone-900 text-[25px] font-bold font-['Poppins']">
-          Pokemon
+          {data.name}
         </div>
         <div className="left-[81px] top-[341.63px] absolute text-stone-500 text-xl font-normal font-['Poppins']">
-          $2.49
+          {formatPrice(data.price)}
         </div>
         <div className="left-[164.30px] top-[341.63px] absolute text-stone-500 text-xl font-normal font-['Poppins']">
-          3 left
+          {data.inStock} left
         </div>
         <div className="left-[126px] top-[311.43px] absolute text-sky-700 text-base font-normal font-['Poppins']">
           rarity
@@ -59,4 +95,4 @@ const Card = ({ id, imageSrc, handleNotificationCount }) => {
   );
 };
 
-export default Card;
+export default ProductCard;

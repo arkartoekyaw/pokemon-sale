@@ -1,7 +1,9 @@
-import { products } from "@/utils/product";
+'use client'
+
+import { products } from "@/utils/products";
 import Search from "./components/search/Search";
 import Image from "next/image";
-import ProductCard from "./components/footer/ProductCard";
+import ProductCard from "./components/products/ProductCard";
 import Container from "./components/Container";
 
 export default function Home() {
@@ -18,10 +20,13 @@ export default function Home() {
         </div>
       </div>
 
+    
+
+
       <div className="w-[113px] h-6 justify-center items-center gap-[9px] flex flex-row mx-auto py-6">
         <div className="w-3.5 h-3.5 relative">
           <div className="w-3.5 h-3.5 left-0 top-0 absolute" />
-          <Image src="/OIP.jpg" alt="arrow" width={20} height={20} />
+          <Image src="/OIP.svg" alt="arrow" width={20} height={20} />
         </div>
         <div className="text-stone-500 text-base font-medium font-['Poppins']">
           show more
