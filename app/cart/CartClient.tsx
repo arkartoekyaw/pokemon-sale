@@ -28,12 +28,12 @@ const CartClient = () => {
   }
   return (
     <div>
-      <div className="w-[416px] h-[613px] flex-col justify-center items-center inline-flex">
-        <div>
+      <div className="w-[416px] h-[613px] flex-col  items-center inline-flex pt-6">
+        <div className="w-[416px]  h-[450px] overflow-y-auto no-scrollbar flex-col  items-center inline-flex">
           {cartProducts &&
             cartProducts.map((item) => {
               return (
-                <div key={item.id}>
+                <div className="py-2" key={item.id}>
                   <div className="w-[336px] h-[104.74px] justify-center items-center gap-5 inline-flex">
                     <Image
                       src={item.images}
