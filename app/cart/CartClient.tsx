@@ -1,63 +1,11 @@
-'use client'
+"use client";
 
-import { useCart,  } from "@/hooks/useCart";
+import { useCart } from "@/hooks/useCart";
 import { formatPrice } from "@/utils/formatPrice";
 import Image from "next/image";
-import { useCallback, useState } from "react";
-// import { CartProductType, cartProduct, setCartProduct } from "@/app/components/products/ProductCard";
-
 
 const CartClient = () => {
-  const { cartProducts } = useCart();
-  const [forceRender, setForceRender] = useState(0);
-
-
-  // const handleQtyIncrease = useCallback(() => {
-  //   if (cartProduct.quantity === 3) {
-  //     return;
-  //   }
-  //   setCartProduct((prev: { quantity: number; }) => {
-  //     return { ...prev, quantity: ++prev.quantity };
-  //   });
-  // }, [cartProduct]);
-
-  // const handleQtyDecrease = useCallback(() => {
-  //   if (cartProduct.quantity === 0) {
-  //     return;
-  //   }
-
-  //   setCartProduct((prev: { quantity: number; }) => {
-  //     return { ...prev, quantity: --prev.quantity };
-  //   });
-  // }, [cartProduct]);
-
-  const [itemQuantity, setItemQuantity] = useState(1);
-
-
-const handleQtyIncrease = () => {
-  if (itemQuantity === 3) {
-    return;
-  }
-  setItemQuantity((prevQuantity) => prevQuantity + 1);
-};
-
-const handleQtyDecrease = () => {
-  if (itemQuantity === 1) {
-    return;
-  }
-  setItemQuantity((prevQuantity) => prevQuantity - 1);
-};
-
-
-
-  const handleClearAll =() =>{
-    
-    localStorage.removeItem('eShopCartItems');
-    setTimeout(() => {
-        setForceRender(forceRender + 1);
-      }, 100);
-;
-  }
+  const { cartProducts, handleClearCart } = useCart();
 
   if (!cartProducts || cartProducts.length === 0) {
     return (
@@ -66,6 +14,22 @@ const handleQtyDecrease = () => {
       </div>
     );
   }
+
+  const totalCards = cartProducts.reduce(
+    (total, product) => total + product.quantity,
+    0
+  );
+
+  const totalPrice = cartProducts.reduce(
+    (total, product) => total + product.quantity * product.price,
+    0
+  );
+
+  const {
+    handleCartQtyIncrease,
+    handleCartQtyDecrease,
+  } = useCart();
+
   return (
     <div>
       <div className="w-[416px] h-[613px] flex-col  items-center inline-flex pt-6">
@@ -74,14 +38,12 @@ const handleQtyDecrease = () => {
             cartProducts.map((item) => {
               return (
                 <div className="py-2" key={item.id}>
-
-
                   <div className="w-[336px] h-[104.74px] justify-center items-center gap-5 inline-flex">
                     <Image
                       src={item.images}
                       width={40}
                       height={50}
-                      alt=''
+                      alt=""
                       className="w-[77px] h-[106px] rounded-[5px]"
                     />
                     <div className="w-[243px] h-[90px] relative">
@@ -93,27 +55,41 @@ const handleQtyDecrease = () => {
                           {formatPrice(item.price)}
                         </span>
                         <span className="text-stone-500 text-xs font-normal font-['Poppins']">
-                        per card
+                          per card
                         </span>
                       </div>
+
                       <div className="w-[25px] h-[30px] left-[218px] top-[8px] absolute">
-                        <div className="origin-top-left rotate-180 w-2 h-[13px] left-[25px] top-0 absolute"><button onClick={handleQtyIncrease}>+</button></div>
-                        <div className="left-0 top-0 absolute text-right text-blue-500 text-xl font-semibold font-['Poppins']">
-                          {itemQuantity}
+                        <div className="origin-top-left rotate-180 w-2 h-[13px] left-[25px] top-0 absolute text-blue-500">
+                          <button onClick={() => handleCartQtyIncrease(item)}>
+                            +
+                          </button>
                         </div>
-                        <div className="origin-top-left rotate-180 w-2 h-[13px] left-[25px] bottom-0 absolute"><button onClick={handleQtyDecrease}>-</button></div>
+                        <div className="left-0 top-0 absolute text-right text-blue-500 text-xl font-semibold font-['Poppins']">
+                          {item.quantity}
+                        </div>
+                        <div className="origin-top-left rotate-180 w-2 h-[13px] left-[25px] bottom-0 absolute text-blue-500">
+                          <button
+                            onClick={() => {
+                              handleCartQtyDecrease(item);
+                            }}
+                          >
+                            -
+                          </button>
+                        </div>
                       </div>
+
                       <div className="w-[47px] h-[42px] left-[196px] top-[48px] absolute">
                         <div className="left-[16px] top-0 absolute text-right text-stone-900 text-xs font-medium font-['Poppins']">
                           price
                         </div>
                         <div className="left-0 top-[18px] absolute text-right text-blue-500 text-base font-bold font-['Poppins']">
-                        {formatPrice(itemQuantity*item.price)}
+                          {formatPrice(item.quantity * item.price)}
                         </div>
                       </div>
                       <div className="left-0 top-[69px] absolute">
                         <span className="text-red-600 text-sm font-semibold font-['Poppins'] pe-1">
-                          {item.inStock}
+                          {item.inStock - item.quantity}
                         </span>
                         <span className="text-stone-300 text-sm font-normal font-['Poppins']">
                           cards left
@@ -132,7 +108,7 @@ const handleQtyDecrease = () => {
               Total cards
             </div>
             <div className="left-[200px] top-0 absolute text-right text-red-600 text-base font-semibold font-['Poppins']">
-              7
+            {totalCards}
             </div>
           </div>
           <div className="w-[209px] h-[30px] left-0 top-[29px] absolute">
@@ -140,14 +116,16 @@ const handleQtyDecrease = () => {
               Total price
             </div>
             <div className="left-[147px] top-0 absolute text-right text-red-600 text-xl font-bold font-['Poppins']">
-              $19.97
+            {formatPrice(totalPrice)}
             </div>
           </div>
         </div>
         <div className="left-[183px] top-[510px] absolute text-center text-stone-500 text-xs font-normal font-['Poppins'] underline">
           <button
             className="mx-auto block"
-            onClick={handleClearAll}
+            onClick={() => {
+              handleClearCart();
+            }}
           >
             Clear all
           </button>

@@ -4,7 +4,6 @@ import { useCart } from "@/hooks/useCart";
 import { formatPrice } from "@/utils/formatPrice";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-// import Footer from "../footer/Footer";
 
 interface ProductCardProps {
   data: any;
@@ -22,9 +21,7 @@ export type CartProductType = {
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const { handleAddProductToCart, cartProducts } = useCart();
   const [isProductInCart, setIsProductInCart] = useState(false);
-  // const {handleNotificationCount, notificationCount } = Footer();
   const [color, setColor] = useState("bg-amber-400");
-
 
   function handleClick() {
     console.log(data.id + " button clicked");
@@ -32,8 +29,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
     setColor("bg-stone-900");
     setTimeout(() => {
       setColor("bg-amber-400");
-        // handleNotificationCount(); // Call the callback function to update the count
-    },200);
+    }, 200);
   }
 
   const [cartProduct, setCartProduct] = useState<CartProductType>({
@@ -42,10 +38,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
     quantity: 1,
     price: data.price,
     images: data.images,
-    inStock: data.inStock
+    inStock: data.inStock,
   });
 
-    useEffect(() => {
+  
+
+
+  useEffect(() => {
     setIsProductInCart(false);
     if (cartProducts) {
       const existingIndex = cartProducts.findIndex(
@@ -56,9 +55,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
       }
     }
   }, [cartProducts, data.id]);
-  
 
-  console.log(cartProducts)
+  console.log(cartProducts);
 
   return (
     <div className={`p-6 mx-auto`}>
@@ -83,9 +81,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             onClick={() => {
               handleClick();
               handleAddProductToCart(cartProduct);
-              // handleNotificationCount(notificationCount)
-
-              ;
             }}
             className={`left-[65px] top-[9px] absolute text-center text-white text-xl font-medium font-['Poppins'] ${color} rounded-[25px]`}
           >
