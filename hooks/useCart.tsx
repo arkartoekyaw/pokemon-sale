@@ -37,54 +37,26 @@ export const CartContextProvider = (props: Props) => {
     setCartProducts(cProducts);
   }, []);
 
-  // const handleAddProductToCart = useCallback((product: CartProductType) => {
-  //   setCartProducts((prev) => {
-  //     let updatedCart;
+  const handleAddProductToCart = useCallback((product: CartProductType) => {
+    setCartProducts((prev) => {
+      if (!prev) {
+        const updatedCart = [product];
+        localStorage.setItem("eShopCartItems", JSON.stringify(updatedCart));
+        return updatedCart;
+      }
 
-  //     if (prev) {
-  //       updatedCart = [...prev, product];
-  //     } else {
-  //       updatedCart = [product];
-  //     }
+      const existingIndex = prev.findIndex((item) => item.id === product.id);
 
-  //     localStorage.setItem("eShopCartItems", JSON.stringify(updatedCart));
-  //     return updatedCart;
-  //   });
-  // }, []);
+      if (existingIndex > -1) {
+        prev[existingIndex].quantity += 0.5;
+      } else {
+        prev.push(product);
+      }
 
-
-
- // Inside useCart hook
-
-const handleAddProductToCart = useCallback((product: CartProductType) => {
-  setCartProducts((prev) => {
-    if (!prev) {
-      // If the cart is empty, add the product
-      const updatedCart = [product];
-      localStorage.setItem("eShopCartItems", JSON.stringify(updatedCart));
-      return updatedCart;
-    }
-
-    // Check if the product is already in the cart
-    const existingIndex = prev.findIndex((item) => item.id === product.id);
-
-    if (existingIndex > -1) {
-      // If the product is in the cart, update the quantity by 1
-      prev[existingIndex].quantity += 0.5;
-    } else {
-      // If the product is not in the cart, add it
-      prev.push(product);
-    }
-
-    localStorage.setItem("eShopCartItems", JSON.stringify(prev));
-    return [...prev];
-  });
-}, []);
-
-
-
-
-  
+      localStorage.setItem("eShopCartItems", JSON.stringify(prev));
+      return [...prev];
+    });
+  }, []);
 
   const handleCartQtyIncrease = useCallback(
     (product: CartProductType) => {
