@@ -46,7 +46,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
         >
           <Image
             className="bg-red-600 rounded-md shadow"
-            src="/close.svg"
+            src="/Close.svg"
             alt="close"
             width={300}
             height={300}
