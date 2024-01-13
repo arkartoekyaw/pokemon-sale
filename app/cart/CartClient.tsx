@@ -29,7 +29,7 @@ const CartClient = () => {
 
   return (
     <div>
-      <div className="w-[416px] h-[613px] flex-col  items-center inline-flex pt-6">
+      <div className="w-[416px] h-[600px] flex-col  items-center inline-flex pt-6">
         <div className="w-[416px]  h-[450px] overflow-y-auto no-scrollbar flex-col  items-center inline-flex">
           {cartProducts &&
             cartProducts.map((item) => {
