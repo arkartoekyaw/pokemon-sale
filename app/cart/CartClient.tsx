@@ -5,7 +5,12 @@ import { formatPrice } from "@/utils/formatPrice";
 import Image from "next/image";
 
 const CartClient = () => {
-  const { cartProducts, handleClearCart } = useCart();
+  const {
+    cartProducts,
+    handleClearCart,
+    handleCartQtyIncrease,
+    handleCartQtyDecrease,
+  } = useCart();
 
   if (!cartProducts || cartProducts.length === 0) {
     return (
@@ -24,8 +29,6 @@ const CartClient = () => {
     (total, product) => total + product.quantity * product.price,
     0
   );
-
-  const { handleCartQtyIncrease, handleCartQtyDecrease } = useCart();
 
   return (
     <div>

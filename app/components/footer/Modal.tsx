@@ -1,7 +1,6 @@
 import CartClient from "@/app/cart/CartClient";
 import React, { useState } from "react";
 import PaymentModal from "./PaymentModal";
-// import { useCart } from "@/hooks/useCart";
 
 interface ModalProps {
   isOpen: boolean;
@@ -21,8 +20,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, handleClose }) => {
     setIsPaymentModalOpen(false);
     handleClose();
   };
-
-  // const { totalCards } = CartClient();
 
   return (
     <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-md shadow-md">
