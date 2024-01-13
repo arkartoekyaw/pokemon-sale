@@ -1,5 +1,3 @@
-"use client";
-
 import { products } from "@/utils/products";
 import Search from "./components/search/Search";
 import Image from "next/image";
