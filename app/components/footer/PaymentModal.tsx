@@ -11,9 +11,10 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
   isPaymentOpen,
   handlePaymentClose,
 }) => {
-  if (!isPaymentOpen) return null;
+  
 
   const { handleClearCart } = useCart();
+  if (!isPaymentOpen) return null;
 
   return (
     <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-4">
