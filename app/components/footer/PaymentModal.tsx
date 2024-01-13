@@ -1,3 +1,4 @@
+import { useCart } from "@/hooks/useCart";
 import Image from "next/image";
 import React from "react";
 
@@ -11,6 +12,8 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
   handlePaymentClose,
 }) => {
   if (!isPaymentOpen) return null;
+
+  const { cartProducts, handleClearCart } = useCart();
 
   return (
     <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-4">
@@ -34,7 +37,10 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
 
       <div className="w-[35px] h-[35px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  relative">
         <button
-          onClick={handlePaymentClose}
+          onClick={() => {
+            handlePaymentClose();
+            handleClearCart();
+          }}
           className="w-[35px] h-[35px]  relative"
         >
           <Image
