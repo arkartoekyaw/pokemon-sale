@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { products } from "@/utils/products";
 import Search from "./components/search/Search";
@@ -19,9 +19,6 @@ export default function Home() {
           })}
         </div>
       </div>
-
-    
-
 
       <div className="w-[113px] h-6 justify-center items-center gap-[9px] flex flex-row mx-auto py-6">
         <div className="w-3.5 h-3.5 relative">

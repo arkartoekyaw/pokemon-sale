@@ -25,10 +25,7 @@ const CartClient = () => {
     0
   );
 
-  const {
-    handleCartQtyIncrease,
-    handleCartQtyDecrease,
-  } = useCart();
+  const { handleCartQtyIncrease, handleCartQtyDecrease } = useCart();
 
   return (
     <div>
@@ -60,7 +57,13 @@ const CartClient = () => {
                       </div>
 
                       <div className="w-[25px] h-[30px] left-[218px] top-[8px] absolute">
-                        <div className="origin-top-left rotate-180 w-2 h-[13px] left-[25px] top-0 absolute text-blue-500">
+                        <div
+                          className={`origin-top-left rotate-180 w-2 h-[13px] left-[25px] top-0 absolute ${
+                            item.quantity === item.inStock
+                              ? "text-red-500"
+                              : "text-blue-500"
+                          }`}
+                        >
                           <button onClick={() => handleCartQtyIncrease(item)}>
                             +
                           </button>
@@ -68,7 +71,13 @@ const CartClient = () => {
                         <div className="left-0 top-0 absolute text-right text-blue-500 text-xl font-semibold font-['Poppins']">
                           {item.quantity}
                         </div>
-                        <div className="origin-top-left rotate-180 w-2 h-[13px] left-[25px] bottom-0 absolute text-blue-500">
+                        <div
+                          className={`origin-top-left rotate-180 w-2 h-[13px] left-[25px] bottom-0 absolute ${
+                            item.quantity === 1
+                              ? "text-red-500"
+                              : "text-blue-500"
+                          }`}
+                        >
                           <button
                             onClick={() => {
                               handleCartQtyDecrease(item);
@@ -108,7 +117,7 @@ const CartClient = () => {
               Total cards
             </div>
             <div className="left-[200px] top-0 absolute text-right text-red-600 text-base font-semibold font-['Poppins']">
-            {totalCards}
+              {totalCards}
             </div>
           </div>
           <div className="w-[209px] h-[30px] left-0 top-[29px] absolute">
@@ -116,7 +125,7 @@ const CartClient = () => {
               Total price
             </div>
             <div className="left-[147px] top-0 absolute text-right text-red-600 text-xl font-bold font-['Poppins']">
-            {formatPrice(totalPrice)}
+              {formatPrice(totalPrice)}
             </div>
           </div>
         </div>

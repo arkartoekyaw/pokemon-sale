@@ -41,9 +41,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
     inStock: data.inStock,
   });
 
-  
-
-
   useEffect(() => {
     setIsProductInCart(false);
     if (cartProducts) {
@@ -56,7 +53,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
     }
   }, [cartProducts, data.id]);
 
-  console.log(cartProducts);
+  // console.log(cartProducts);
 
   return (
     <div className={`p-6 mx-auto`}>
@@ -72,21 +69,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
           />
         </div>
 
-        <div
+        <button
+          type="button"
+          onClick={() => {
+            handleClick();
+            handleAddProductToCart(cartProduct);
+          }}
           className={`w-[217.23px] h-[47.37px] left-[38px] top-[384px] absolute ${color} rounded-[25px]`}
         >
-          <div className="w-[217.23px] h-[47.37px] left-0 top-0 absolute  rounded-[25px] shadow" />
-          <button
-            type="button"
-            onClick={() => {
-              handleClick();
-              handleAddProductToCart(cartProduct);
-            }}
+          <div
             className={`left-[65px] top-[9px] absolute text-center text-white text-xl font-medium font-['Poppins'] ${color} rounded-[25px]`}
           >
             Selected
-          </button>
-        </div>
+          </div>
+        </button>
 
         <div className="left-[86px] top-[278px] absolute text-stone-900 text-[25px] font-bold font-['Poppins']">
           {data.name}

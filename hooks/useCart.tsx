@@ -25,6 +25,7 @@ interface Props {
 }
 
 export const CartContextProvider = (props: Props) => {
+  // export const CartContextProvider: React.FC = ({ children }) => {
   const [cartTotalQty, setCartTotalQty] = useState(0);
   const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(
     null
@@ -48,7 +49,7 @@ export const CartContextProvider = (props: Props) => {
       const existingIndex = prev.findIndex((item) => item.id === product.id);
 
       if (existingIndex > -1) {
-        prev[existingIndex].quantity += 0.5;
+        prev[existingIndex].quantity += 0;
       } else {
         prev.push(product);
       }
@@ -61,7 +62,7 @@ export const CartContextProvider = (props: Props) => {
   const handleCartQtyIncrease = useCallback(
     (product: CartProductType) => {
       let updatedCart;
-      if (product.quantity === 99) {
+      if (product.quantity === product.inStock) {
         return;
       }
       if (cartProducts) {
@@ -123,6 +124,7 @@ export const CartContextProvider = (props: Props) => {
   };
 
   return <CartContext.Provider value={value} {...props} />;
+  // return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
 
 export const useCart = () => {
