@@ -8,9 +8,9 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, handleClose }) => {
-  if (!isOpen) return null;
-
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+
+  if (!isOpen) return null;
 
   const handlePaymentButtonClick = () => {
     setIsPaymentModalOpen(true);
